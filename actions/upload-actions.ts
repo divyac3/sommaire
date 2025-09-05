@@ -1,5 +1,6 @@
 'use server';
 
+import { generatePdfSummaryWithRetry } from "@/lib/geminiai";
 import { fetchAndExtractPdfText } from "@/lib/langchain";
 
 export async function generatePdfSummary(uploadResponse :[{
@@ -34,9 +35,24 @@ export async function generatePdfSummary(uploadResponse :[{
     }
   }
 
+  let summary;
   try {
     const pdfText = await fetchAndExtractPdfText(pdfurl);
     console.log({pdfText})
+    try{
+      summary = await generatePdfSummaryWithRetry(pdfText)
+      console.log({summary})
+    } catch (error) {
+      console.log(error)
+    }
+
+    if(!summary) {          
+      return {
+        success: false,
+        message: 'File to generate summary',
+        data: null,
+      }
+    }
   } catch(error) {
     return {
       success: false,
