@@ -4,8 +4,10 @@ import { useUploadThing } from "@/utils/uploadthing";
 import UploadFormInput from "./upload-form-input";
 import { z } from "zod";
 import { toast } from "sonner";
-import { generatePdfSummary } from "@/actions/upload-actions";
+import { generatePdfSummary, storePdfSummaryAction } from "@/actions/upload-actions";
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+
 
 const schema = z.object({
   file: z
@@ -23,6 +25,7 @@ const schema = z.object({
 export default function UploadForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter();
 
   const { startUpload, routeConfig } = useUploadThing("pdfUploader", {
     onClientUploadComplete: (res) => {
@@ -81,26 +84,40 @@ export default function UploadForm() {
         description: "Hang tight! Our AI is reading through your document! ✨ ",
       });
       //parse the pdf using langchain
+      //summarize the pdf using AI
       const result = await generatePdfSummary(resp);
 
       const { data = null, message = null } = result || {};
 
       if (data) {
+        let storeResult: any;
         toast("📄 Saving PDF...", {
           description: "Hang tight! We are saving your summary! ✨ ",
         });
+        
+        if(data.summary) {
+          storeResult = await storePdfSummaryAction({
+            summary: data.summary,
+            fileUrl: resp[0].serverData.file.url,
+            title: data.title,
+            fileName: file.name,
+          })
+        //save the summary to the database
+        toast('✨ Summary Generated!', {
+          description: 'Your PDF has been succesfully summarized and saved! ✨'
+        })
         formRef.current?.reset();
-        // if(data.summary) {
-        // //save the summary to the database
-        // }
+        router.push(`/summaries/${storeResult.data.id}`)
+        //redirect to the [id] summary page
+        }
       }
-      console.log({ result }); //remove this later
-      //summarize the pdf using AI
-      //redirect to the [id] summary page
+      
     } catch (error) {
       setIsLoading(false);
       console.error("Error Occurred", error);
       formRef.current?.reset();
+    } finally {
+      setIsLoading(false);
     }
   };
 
