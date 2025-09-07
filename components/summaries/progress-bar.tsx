@@ -13,9 +13,8 @@ export default function ProgressBar({
       {sections.map((_,index)=> (
         <div key={index} className=" h-1.5 flex-1 rounded-full bg-rose-500/10 overflow-hidden">
         <div 
-          key={index}
           className={cn(
-            'h-1.5 ng-linear-to-r from-gray-500 to-rose-600 transition-all duration-500',
+            'h-full bg-linear-to-r from-gray-500 to-rose-600 transition-all duration-500',
             index === currentSection ? 'w-full' : currentSection > index ? 'w-full opacity-10' : 'w-0')}
         />
         </div>

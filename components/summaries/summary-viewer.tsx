@@ -5,6 +5,7 @@ import { useState } from "react";
 import { NavigationControls } from "./navigation-controls";
 import ProgressBar from "./progress-bar";
 import { parseSection } from "@/utils/summary-helpers";
+import ContentSection from "./content-section";
 
 const Sectiontitle = ({ title }: {title: string}) => {
   return (
@@ -15,7 +16,7 @@ const Sectiontitle = ({ title }: {title: string}) => {
   </h2>
   </div>
   )
-}
+}   
 
 export function SummaryViewer({summary} : {summary: string}) {
 
@@ -41,16 +42,15 @@ export function SummaryViewer({summary} : {summary: string}) {
 
         <div className="px-4 sm:px-6">
           <Sectiontitle title={sections[currentSection]?.title || ''} />
-          <ul>
-            {sections[currentSection]?.points.map((point,index) => (
-              <li key={index}>{point}</li>
-            ))}
-          </ul>
+          
+          <ContentSection 
+          title = {sections[currentSection]?.title || ''}
+          points={sections[currentSection]?.points || []} />
         </div>
 
       </div>
 
-      {JSON.stringify(sections[currentSection].points)}
+      
 
       <NavigationControls 
         currentSection={currentSection}
