@@ -12,7 +12,7 @@ export default async function Layput({children} :{children: React.ReactNode}) {
 
   const hasActiveSubscription = await hasActivePlan(user.emailAddresses[0].emailAddress);
 
-  if(!hasActiveSubscription) {
+  if(hasActiveSubscription) {
     return <UpgradeRequired />
   }
 
