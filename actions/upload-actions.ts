@@ -18,16 +18,12 @@ interface PdfSummaryType {
 
 
 
-export async function generatePdfSummary(uploadResponse :[{
-  serverData: {
-    userId: string;
-    file: {
-      url: string;
-      name:string;
-    }
+export async function generatePdfSummary({fileUrl, fileName}:
+  {fileUrl: string,
+    fileName: string,
   }
-}]) {
-  if(!uploadResponse) {
+) {
+  if(!fileUrl) {
     return {
       success: false,
       message: 'File upload failed',
@@ -35,14 +31,8 @@ export async function generatePdfSummary(uploadResponse :[{
     }
   }
 
-  const {
-    serverData: {
-      userId,
-      file: {url: pdfurl, name: fileName},
-    }
-  } = uploadResponse[0];
 
-  if(!pdfurl) {
+  if(!fileUrl) {
     return {
       success: false,
       message: 'File upload failed',
