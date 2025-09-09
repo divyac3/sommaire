@@ -15,7 +15,8 @@ function HeaderSkeleton() {
             <Skeleton className="h-10 w-48" />
         </MotionH1>
          
-        <MotionP variants={itemVariants}
+        <MotionP 
+          variants={itemVariants}
           initial="hidden"
           animated="visible"
           className="text-gray-600">
