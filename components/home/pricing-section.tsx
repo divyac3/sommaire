@@ -4,6 +4,7 @@ import { ArrowRight, CheckIcon } from "lucide-react";
 import Link from "next/link";
 import { MotionDiv, MotionSection } from "../common/motion-wrapper";
 
+
 type PriceType = {
     name: string;
     price: number;
@@ -13,10 +14,10 @@ type PriceType = {
     paymentLink: string;
     priceId: string;
 };
-const listVariant= {
+const listVariant ={
     hidden: {opacity:0, x:-20},
     visible:{opacity:1, x:0,
-        transition:{type:'spring', damping:20, stiffness:100}
+        transition:{type:'spring' as const, damping:20, stiffness:100}
     } 
 }
 
