@@ -42,7 +42,7 @@ export async function generatePdfSummary({fileUrl, fileName}:
 
   let summary;
   try {
-    const pdfText = await fetchAndExtractPdfText(pdfurl);
+    const pdfText = await fetchAndExtractPdfText(fileUrl);
     console.log({pdfText})
     try{
       summary = await generatePdfSummaryWithRetry(pdfText)
