@@ -18,14 +18,14 @@ function HeaderSkeleton() {
         <MotionP 
           variants={itemVariants}
           initial="hidden"
-          animated="visible"
+          animate="visible"
           className="text-gray-600">
             <Skeleton className="h-6 w-96" />
         </MotionP>
       </div>
       <MotionDiv variants={itemVariants}
           initial="hidden"
-          animated="visible"
+          animate="visible"
           className="self-start">
             <Skeleton className="h-10 w-32" />        
       </MotionDiv>

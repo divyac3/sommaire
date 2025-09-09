@@ -41,7 +41,7 @@ export default async function DashboardPage() {
               </MotionH1>
               <MotionP variants={itemVariants}
                 initial="hidden"
-                animated="visible"
+                animate="visible"
                 className="text-gray-600">
                 Transform your PDFs into concise actionable insights
               </MotionP>
@@ -50,7 +50,7 @@ export default async function DashboardPage() {
             {!hasReachedLimit && (
               <MotionDiv variants={itemVariants}
                 initial="hidden"
-                animated="visible"
+                animate="visible"
                 whileHover={{scale : 1.05}} 
                 className="self-start">
               <Button variant={'link'} className="bg-linear-to-r from-rose-500 to-rose-700 hover:from-rose-600 hover:to-rose-800 hover:scale-105 transition-all duration-300 group hover:no-underline">
