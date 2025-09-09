@@ -4,16 +4,16 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { MotionDiv, MotionH1, MotionH2, MotionSection, MotionSpan } from "@/components/common/motion-wrapper";
 import { containerVariants, itemVariants } from "@/utils/constants";
+import type { TargetAndTransition } from 'framer-motion';
 
-
-const buttonVariants = {
-    scale: 1.05,
-    transition: {
-        type: 'spring',
-        stiffness: 300,
-        damping: 10,
-    }
-}
+const buttonVariants: TargetAndTransition = {
+  scale: 1.05,
+  transition: {
+    type: 'spring',
+    stiffness: 300,
+    damping: 10,
+  },
+};
 
 export default function HeroSection() {
     return ( 
